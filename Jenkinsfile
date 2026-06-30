@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USER   = 'your-dockerhub-username'        // CHANGE THIS
+        DOCKERHUB_USER   = 'infrawave'       
         REGISTRY         = "docker.io/${DOCKERHUB_USER}"
-        GIT_REPO_URL     = 'https://github.com/Rushi6402/microservices-k8s.git' // CHANGE THIS
+        GIT_REPO_URL     = 'https://github.com/Rushi6402/microservices-k8s.git' 
         GIT_BRANCH       = 'main'
         VALUES_FILE      = 'helm-chart/values.yaml'
         DOCKERHUB_CREDS  = 'dockerhub-creds'   // Jenkins credential ID
