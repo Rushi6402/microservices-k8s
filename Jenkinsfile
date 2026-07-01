@@ -80,24 +80,23 @@ pipeline {
         }
 
         stage('Update Helm values.yaml') {
-            when { expression { return env.CHANGED_SERVICES?.trim() } }
-            steps {
-                script {
-                    def services = env.CHANGED_SERVICES.split('\n')
-                    for (svc in services) {
-                        svc = svc.trim()
-                        if (!svc) continue
-                        def tagVar = env."TAG_${svc}"
-                        if (!tagVar) continue
-                        // Requires 'yq' (mikefarah/yq) installed on the Jenkins agent/container.
-                        // Adjust the yq path expression to match your actual values.yaml structure.
-                        sh """
-                            yq e -i '.${svc}.image.repository = \"${REGISTRY}/${svc}\" | .${svc}.image.tag = \"${tagVar}\"' ${VALUES_FILE}
-                        """
-                    }
+           when { expression { return env.CHANGED_SERVICES?.trim() } }
+           steps {
+              script {
+                 def services = env.CHANGED_SERVICES.split('\n')
+                 for (svc in services) {
+                     svc = svc.trim()
+                     if (!svc) continue
+                     def tagVar = env."TAG_${svc}"
+                     if (!tagVar) continue
+                     sh """
+                          yq e -i '.images.${svc}.repository = \"${REGISTRY}/${svc}\"' ${VALUES_FILE}
+                          yq e -i '.images.${svc}.tag = \"${tagVar}\"' ${VALUES_FILE}
+                    """
                 }
-            }
-        }
+             }
+         }
+      }
 
         stage('Commit & Push updated values.yaml') {
             when { expression { return env.CHANGED_SERVICES?.trim() } }
