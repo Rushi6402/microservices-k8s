@@ -29,7 +29,7 @@ images:
     tag: v0.10.4
   currencyservice:
     repository: docker.io/infrawave/currencyservice
-    tag: v0.10.4
+    tag: sha-61b8440d
   emailservice:
     repository: docker.io/infrawave/emailservice
     tag: v0.10.4
