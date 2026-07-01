@@ -125,3 +125,7 @@ cartDatabase:
     publicRepository: true
   externalRedisTlsOrigination:
     enable: false
+
+shoppingAssistantService:
+  create: false
+  name: shoppingassistantservice
