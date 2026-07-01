@@ -26,7 +26,7 @@ images:
     tag: v0.10.4
   checkoutservice:
     repository: docker.io/infrawave/checkoutservice
-    tag: v0.10.4
+    tag: sha-cd2c9458
   currencyservice:
     repository: docker.io/infrawave/currencyservice
     tag: sha-61b8440d
