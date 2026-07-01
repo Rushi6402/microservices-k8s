@@ -8,12 +8,12 @@ spec:
 
   source:
     repoURL: https://github.com/Rushi6402/microservices-k8s.git
-    targetRevision: HEAD
-    path: .
+    targetRevision: main
+    path: helm-chart
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: boutique-app
+    namespace: boutique
 
   syncPolicy:
     automated:
