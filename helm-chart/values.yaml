@@ -18,38 +18,38 @@
 
 images:
   adservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/adservice
+    repository: docker.io/infrawave/adservice
     # Overrides the image tag whose default is the chart appVersion.
     tag: v0.10.4
   cartservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/cartservice
+    repository: docker.io/infrawave/adservice
     tag: v0.10.4
   checkoutservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/checkoutservice
+    repository: docker.io/infrawave/checkoutservice
     tag: v0.10.4
   currencyservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/currencyservice
+    repository: docker.io/infrawave/currencyservice
     tag: v0.10.4
   emailservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/emailservice
+    repository: docker.io/infrawave/emailservice
     tag: v0.10.4
   frontend:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/frontend
-    tag: v0.10.4
+    repository: docker.io/infrawave/frontend
+    tag: sha-938d7cf0
   loadgenerator:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/loadgenerator
+    repository: docker.io/infrawave/loadgenerator
     tag: v0.10.4
   paymentservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/paymentservice
+    repository: docker.io/infrawave/paymentservice
     tag: v0.10.4
   productcatalogservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
+    repository: docker.io/infrawave/productcatalogservice
     tag: v0.10.4
   recommendationservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/recommendationservice
+    repository: docker.io/infrawave/recommendationservice
     tag: v0.10.4
   shippingservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/shippingservice
+    repository: docker.io/infrawave/shippingservice
     tag: v0.10.4
 serviceAccounts:
   # Specifies whether service accounts should be created.
