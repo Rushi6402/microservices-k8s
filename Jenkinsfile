@@ -54,30 +54,46 @@ pipeline {
         }
 
         stage('Build & Push images') {
-            when { expression { return env.CHANGED_SERVICES?.trim() } }
-            steps {
-                withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDS}", usernameVariable: 'DU', passwordVariable: 'DP')]) {
-                    sh "echo \$DP | docker login -u \$DU --password-stdin"
+    when { expression { return env.CHANGED_SERVICES?.trim() } }
+    steps {
+        withCredentials([usernamePassword(credentialsId: "${DOCKERHUB_CREDS}", usernameVariable: 'DU', passwordVariable: 'DP')]) {
+            sh "echo \$DP | docker login -u \$DU --password-stdin"
+        }
+        script {
+            // Services to SKIP - too heavy or not needed
+            def skipServices = ['adservice', 'loadgenerator']
+
+            def services = env.CHANGED_SERVICES.split('\n')
+            def builtAny = false
+            for (svc in services) {
+                svc = svc.trim()
+                if (!svc) continue
+                if (skipServices.contains(svc)) {
+                    echo "Skipping ${svc} - excluded from build"
+                    continue
                 }
-                script {
-                    def services = env.CHANGED_SERVICES.split('\n')
-                    for (svc in services) {
-                        svc = svc.trim()
-                        if (!svc) continue
-                        if (!fileExists("src/${svc}/Dockerfile")) {
-                            echo "Skipping ${svc} - no Dockerfile found"
-                            continue
-                        }
-                        def tag = "sha-${env.GIT_COMMIT_SHORT}"
-                        def image = "${REGISTRY}/${svc}:${tag}"
-                        echo "Building ${image}"
-                        sh "docker build -t ${image} ./src/${svc}"
-                        sh "docker push ${image}"
-                        env."TAG_${svc}" = tag
-                    }
+                if (!fileExists("src/${svc}/Dockerfile")) {
+                    echo "Skipping ${svc} - no Dockerfile found"
+                    continue
+                }
+                try {
+                    def tag = "sha-${env.GIT_COMMIT_SHORT}"
+                    def image = "${REGISTRY}/${svc}:${tag}"
+                    echo "Building ${image}"
+                    sh "docker build -t ${image} ./src/${svc}"
+                    sh "docker push ${image}"
+                    env."TAG_${svc}" = tag
+                    builtAny = true
+                } catch (err) {
+                    echo "WARNING: Failed to build ${svc}: ${err.message} - skipping"
                 }
             }
+            if (!builtAny) {
+                echo "No services were successfully built"
+            }
         }
+    }
+}
 
         stage('Update Helm values.yaml') {
            when { expression { return env.CHANGED_SERVICES?.trim() } }
