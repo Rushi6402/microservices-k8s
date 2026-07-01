@@ -1,13 +1,13 @@
 images:
   adservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/adservice
-    tag: v0.10.4
+    repository: docker.io/infrawave/adservice
+    tag: sha-e1e77bfa
   cartservice:
     repository: ghcr.io/laxmikantagiri/microservices-demo/cartservice
     tag: v0.10.4
   checkoutservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/checkoutservice
-    tag: v0.10.4
+    repository: docker.io/infrawave/checkoutservice
+    tag: sha-cd2c9458
   currencyservice:
     repository: docker.io/infrawave/currencyservice
     tag: sha-61b8440d
