@@ -12,8 +12,8 @@ images:
     repository: docker.io/infrawave/currencyservice
     tag: sha-61b8440d
   emailservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/emailservice
-    tag: v0.10.4
+    repository: docker.io/infrawave/emailservice
+    tag: sha-82a29d65
   frontend:
     repository: docker.io/infrawave/frontend
     tag: sha-938d7cf0
@@ -32,58 +32,44 @@ images:
   shippingservice:
     repository: ghcr.io/laxmikantagiri/microservices-demo/shippingservice
     tag: v0.10.4
-
 serviceAccounts:
   create: true
   annotations: {}
   annotationsOnlyForCartservice: false
-
 networkPolicies:
   create: false
-
 sidecars:
   create: false
-
 authorizationPolicies:
   create: false
-
 opentelemetryCollector:
   create: false
   name: opentelemetrycollector
   projectId: "PROJECT_ID"
-
 googleCloudOperations:
   profiler: false
   tracing: false
   metrics: false
-
 seccompProfile:
   enable: false
   type: RuntimeDefault
-
 securityContext:
   enable: true
-
 adService:
   create: true
   name: adservice
-
 cartService:
   create: true
   name: cartservice
-
 checkoutService:
   create: true
   name: checkoutservice
-
 currencyService:
   create: true
   name: currencyservice
-
 emailService:
   create: true
   name: emailservice
-
 frontend:
   create: true
   name: frontend
@@ -93,29 +79,23 @@ frontend:
   singleSharedSession: false
   virtualService:
     create: false
-
 loadGenerator:
   create: true
   name: loadgenerator
   checkFrontendInitContainer: true
-
 paymentService:
   create: true
   name: paymentservice
-
 productCatalogService:
   create: true
   name: productcatalogservice
   extraLatency: ""
-
 recommendationService:
   create: true
   name: recommendationservice
-
 shippingService:
   create: true
   name: shippingservice
-
 cartDatabase:
   type: redis
   connectionString: "redis-cart:6379"
@@ -125,7 +105,6 @@ cartDatabase:
     publicRepository: true
   externalRedisTlsOrigination:
     enable: false
-
 shoppingAssistantService:
   create: false
   name: shoppingassistantservice
