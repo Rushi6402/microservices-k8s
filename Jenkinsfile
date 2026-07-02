@@ -54,7 +54,7 @@ pipeline {
                 }
                 script {
                     // Services to skip - too heavy or not needed
-                    def skipServices = ['adservice', 'loadgenerator']
+                   
 
                     // Services with non-standard build paths
                     def buildPaths = [
