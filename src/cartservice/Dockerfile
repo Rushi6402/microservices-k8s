@@ -1,4 +1,3 @@
-# trigger build
 
 # Copyright 2021 Google LLC
 #
