@@ -53,31 +53,50 @@ pipeline {
                     sh "echo \$DP | docker login -u \$DU --password-stdin"
                 }
                 script {
+                    // Services to skip - too heavy or not needed
                     def skipServices = ['adservice', 'loadgenerator']
+
+                    // Services with non-standard build paths
+                    def buildPaths = [
+                        'cartservice': 'src/cartservice/src/cartservice'
+                    ]
+
                     def services = env.CHANGED_SERVICES.split('\n')
                     def builtServices = []
 
                     for (svc in services) {
                         svc = svc.trim()
                         if (!svc) continue
+
                         if (skipServices.contains(svc)) {
                             echo "Skipping ${svc} - excluded from build list"
                             continue
                         }
-                        if (!fileExists("src/${svc}/Dockerfile")) {
-                            echo "Skipping ${svc} - no Dockerfile found"
+
+                        // Get the correct build path
+                        def buildPath = buildPaths.containsKey(svc) ? buildPaths[svc] : "src/${svc}"
+                        def dockerfilePath = "${buildPath}/Dockerfile"
+
+                        if (!fileExists(dockerfilePath)) {
+                            echo "Skipping ${svc} - no Dockerfile found at ${dockerfilePath}"
                             continue
                         }
-                        def firstLine = sh(script: "head -1 src/${svc}/Dockerfile", returnStdout: true).trim()
+
+                        // Check if Dockerfile is corrupted
+                        def firstLine = sh(
+                            script: "head -1 ${dockerfilePath}",
+                            returnStdout: true
+                        ).trim()
                         if (firstLine.startsWith('#') && firstLine.contains('trigger')) {
                             echo "Skipping ${svc} - Dockerfile corrupted: ${firstLine}"
                             continue
                         }
+
                         try {
                             def tag = "sha-${env.GIT_COMMIT_SHORT}"
                             def image = "${REGISTRY}/${svc}:${tag}"
-                            echo "Building ${image}"
-                            sh "docker build -t ${image} ./src/${svc}"
+                            echo "Building ${image} from ./${buildPath}"
+                            sh "docker build -t ${image} ./${buildPath}"
                             sh "docker push ${image}"
                             env."TAG_${svc}" = tag
                             builtServices.add(svc)
