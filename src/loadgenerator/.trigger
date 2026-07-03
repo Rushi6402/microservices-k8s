@@ -1,1 +1,1 @@
-build-all
+build
