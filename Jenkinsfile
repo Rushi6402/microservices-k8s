@@ -87,7 +87,7 @@ pipeline {
                         }
 
                         try {
-                            def tag = "sha-${env.GIT_COMMIT_SHORT}"
+                            def tag = "v1.0.${env.BUILD_NUMBER}"
                             def image = "${REGISTRY}/${svc}:${tag}"
                             echo "=========================================="
                             echo "Building: ${image}"
