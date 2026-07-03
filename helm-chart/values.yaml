@@ -3,8 +3,8 @@ images:
     repository: docker.io/infrawave/adservice
     tag: sha-e1e77bfa
   cartservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/cartservice
-    tag: v0.10.4
+    repository: docker.io/infrawave/cartservice
+    tag: sha-7c6e13af
   checkoutservice:
     repository: docker.io/infrawave/checkoutservice
     tag: sha-cd2c9458
