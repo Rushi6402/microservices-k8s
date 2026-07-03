@@ -18,8 +18,8 @@ images:
     repository: docker.io/infrawave/frontend
     tag: sha-938d7cf0
   loadgenerator:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/loadgenerator
-    tag: v0.10.4
+    repository: docker.io/infrawave/loadgenerator
+    tag: sha-21dea8d2
   paymentservice:
     repository: docker.io/infrawave/paymentservice
     tag: sha-bf69686e
