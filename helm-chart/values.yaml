@@ -16,7 +16,7 @@ images:
     tag: sha-82a29d65
   frontend:
     repository: docker.io/infrawave/frontend
-    tag: sha-938d7cf0ag: v0.10
+    tag: v0.10
   loadgenerator:
     repository: docker.io/infrawave/loadgenerator
     tag: sha-21dea8d2
