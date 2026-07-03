@@ -54,7 +54,7 @@ pipeline {
                 }
                 script {
                     // Services to skip - too heavy or not needed
-                   (build: trigger all 11 services with fixed Jenkinsfile)
+                  
                     // Services with non-standard build paths
                     def buildPaths = [
                         'cartservice': 'src/cartservice/src/cartservice'
