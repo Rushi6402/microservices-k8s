@@ -1,1 +1,1 @@
-build-all
+build-all git add Jenkinsfile src/
