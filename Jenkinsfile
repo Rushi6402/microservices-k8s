@@ -53,9 +53,13 @@ pipeline {
                     sh "echo \$DP | docker login -u \$DU --password-stdin"
                 }
                 script {
+<<<<<<< HEAD
                     // Services to skip - too heavy or not needed
                    
 
+=======
+                    // Build ALL services - nothing skipped
+>>>>>>> a8951a84 (build: trigger all 11 services with fixed Jenkinsfile)
                     // Services with non-standard build paths
                     def buildPaths = [
                         'cartservice': 'src/cartservice/src/cartservice'
@@ -68,12 +72,7 @@ pipeline {
                         svc = svc.trim()
                         if (!svc) continue
 
-                        if (skipServices.contains(svc)) {
-                            echo "Skipping ${svc} - excluded from build list"
-                            continue
-                        }
-
-                        // Get the correct build path
+                        // Get correct build path (cartservice is nested)
                         def buildPath = buildPaths.containsKey(svc) ? buildPaths[svc] : "src/${svc}"
                         def dockerfilePath = "${buildPath}/Dockerfile"
 
@@ -95,21 +94,26 @@ pipeline {
                         try {
                             def tag = "sha-${env.GIT_COMMIT_SHORT}"
                             def image = "${REGISTRY}/${svc}:${tag}"
-                            echo "Building ${image} from ./${buildPath}"
+                            echo "=========================================="
+                            echo "Building: ${image}"
+                            echo "From path: ./${buildPath}"
+                            echo "=========================================="
                             sh "docker build -t ${image} ./${buildPath}"
                             sh "docker push ${image}"
                             env."TAG_${svc}" = tag
                             builtServices.add(svc)
-                            echo "Built and pushed ${image}"
+                            echo "SUCCESS: Built and pushed ${image}"
                         } catch (err) {
-                            echo "WARNING: Failed to build ${svc}: ${err.message} - continuing"
+                            echo "WARNING: Failed to build ${svc}: ${err.message} - continuing with next service"
                         }
                     }
 
                     if (builtServices.isEmpty()) {
-                        echo "No services were successfully built"
+                        echo "No services were successfully built in this run"
                     } else {
+                        echo "=========================================="
                         echo "Successfully built: ${builtServices.join(', ')}"
+                        echo "=========================================="
                         env.BUILT_SERVICES = builtServices.join(',')
                     }
                 }
@@ -128,7 +132,7 @@ pipeline {
                         if (!svc) continue
                         def tagVar = env."TAG_${svc}"
                         if (!tagVar) continue
-                        echo "Updating values.yaml for ${svc} -> ${tagVar}"
+                        echo "Updating values.yaml: ${svc} -> ${tagVar}"
                         sh "yq e -i '.images.${svc}.repository = \"${REGISTRY}/${svc}\"' ${VALUES_FILE}"
                         sh "yq e -i '.images.${svc}.tag = \"${tagVar}\"' ${VALUES_FILE}"
                     }
@@ -146,7 +150,7 @@ pipeline {
                         git config user.email "jenkins@ci.local"
                         git config user.name "jenkins"
                         git add ${VALUES_FILE}
-                        git diff --cached --quiet && echo "Nothing to commit" || git commit -m "ci: update image tags [skip ci]"
+                        git diff --cached --quiet && echo "Nothing to commit - values.yaml unchanged" || git commit -m "ci: update image tags [skip ci]"
                         git push https://\$GU:\$GP@\$(echo ${GIT_REPO_URL} | sed 's#https://##') HEAD:${GIT_BRANCH}
                     """
                 }
@@ -156,10 +160,26 @@ pipeline {
 
     post {
         success {
-            echo "Pipeline SUCCESS. Built: ${env.BUILT_SERVICES ?: 'none'}. ArgoCD will auto-sync."
+            echo """
+            ========================================
+            PIPELINE SUCCESS
+            Built services : ${env.BUILT_SERVICES ?: 'none'}
+            Registry       : docker.io/infrawave
+            ArgoCD         : will auto-sync to kind cluster
+            ========================================
+            """
         }
         failure {
-            echo "Pipeline FAILED. Check logs above."
+            echo """
+            ========================================
+            PIPELINE FAILED
+            Check Build and Push stage logs above.
+            Common fixes:
+            - Corrupted Dockerfile: restore from upstream
+            - Disk full: run docker system prune -af
+            - Network timeout: re-trigger the build
+            ========================================
+            """
         }
     }
 }
