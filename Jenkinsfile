@@ -57,7 +57,7 @@ pipeline {
                   
                     // Services with non-standard build paths
                     def buildPaths = [
-                        'cartservice': 'src/cartservice/src/cartservice'
+                        'cartservice': 'src/cartservice/src'
                     ]
 
                     def services = env.CHANGED_SERVICES.split('\n')
