@@ -16,16 +16,16 @@ images:
     tag: sha-82a29d65
   frontend:
     repository: docker.io/infrawave/frontend
-    tag: sha-938d7cf0
+    tag: sha-938d7cf0ag: v0.10
   loadgenerator:
     repository: docker.io/infrawave/loadgenerator
     tag: sha-21dea8d2
   paymentservice:
     repository: docker.io/infrawave/paymentservice
     tag: sha-bf69686e
-  # productcatalogservice:
-  #   repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
-  #   tag: v0.10.4
+  productcatalogservice:
+    repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
+    tag: v0.10.4
   recommendationservice:
     repository: docker.io/infrawave/recommendationservice
     tag: sha-bf69686e
