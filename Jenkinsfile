@@ -53,13 +53,8 @@ pipeline {
                     sh "echo \$DP | docker login -u \$DU --password-stdin"
                 }
                 script {
-<<<<<<< HEAD
                     // Services to skip - too heavy or not needed
-                   
-
-=======
-                    // Build ALL services - nothing skipped
->>>>>>> a8951a84 (build: trigger all 11 services with fixed Jenkinsfile)
+                   (build: trigger all 11 services with fixed Jenkinsfile)
                     // Services with non-standard build paths
                     def buildPaths = [
                         'cartservice': 'src/cartservice/src/cartservice'
