@@ -114,4 +114,12 @@ func (fe *frontendServer) getAd(ctx context.Context, ctxKeys []string) ([]*pb.Ad
 		ContextKeys: ctxKeys,
 	})
 	return resp.GetAds(), errors.Wrap(err, "failed to get ads")
+} 
+func (fe *frontendServer) getProducts(ctx context.Context) ([]*pb.Product, error) {
+	return []*pb.Product{}, nil
+}
+
+
+func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Product, error) {
+	return nil, errors.New("product service removed")
 }
