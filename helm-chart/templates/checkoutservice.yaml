@@ -167,7 +167,6 @@ spec:
     - ./{{ .Values.currencyService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.emailService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.paymentService.name }}.{{ .Release.Namespace }}.svc.cluster.local
-    - ./{{ .Values.productCatalogService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.shippingService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     {{- if .Values.opentelemetryCollector.create }}
     - ./{{ .Values.opentelemetryCollector.name }}.{{ .Release.Namespace }}.svc.cluster.local
