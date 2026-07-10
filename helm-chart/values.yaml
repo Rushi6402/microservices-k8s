@@ -23,9 +23,7 @@ images:
   paymentservice:
     repository: docker.io/infrawave/paymentservice
     tag: v1.0.0
-  # productcatalogservice:
-  #   repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
-  #   tag: v0.10.4
+ 
   recommendationservice:
     repository: docker.io/infrawave/recommendationservice
     tag: v1.0.0
