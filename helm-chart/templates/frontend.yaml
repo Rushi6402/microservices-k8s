@@ -92,8 +92,6 @@ spec:
           env:
           - name: PORT
             value: "8080"
-          - name: PRODUCT_CATALOG_SERVICE_ADDR
-            value: "{{ .Values.productCatalogService.name }}:3550"
           - name: CURRENCY_SERVICE_ADDR
             value: "{{ .Values.currencyService.name }}:7000"
           - name: CART_SERVICE_ADDR
