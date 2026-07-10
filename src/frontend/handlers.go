@@ -64,30 +64,14 @@ func (fe *frontendServer) homeHandler(w http.ResponseWriter, r *http.Request) {
 		renderHTTPError(log, r, w, errors.Wrap(err, "could not retrieve currencies"), http.StatusInternalServerError)
 		return
 	}
-   products, err := fe.getProducts(r.Context())
-   if err != nil {
-        renderHTTPError(log, r, w, errors.Wrap(err, "could not retrieve products"), http.StatusInternalServerError)
-        return
-}
+  
 	cart, err := fe.getCart(r.Context(), sessionID(r))
 	if err != nil {
 		  renderHTTPError(log, r, w, errors.Wrap(err, "could not retrieve cart"), http.StatusInternalServerError)
 	  	return
 	}
 
-	type productView struct {
-		Item  *pb.Product
-		Price *pb.Money
-	}
-	ps := make([]productView, len(products))
-	for i, p := range products {
-		price, err := fe.convertCurrency(r.Context(), p.GetPriceUsd(), currentCurrency(r))
-		if err != nil {
-			renderHTTPError(log, r, w, errors.Wrapf(err, "failed to do currency conversion for product %s", p.GetId()), http.StatusInternalServerError)
-			return
-		}
-		ps[i] = productView{p, price}
-	}
+	
 
 	// Set ENV_PLATFORM (default to local if not set; use env var if set; otherwise detect GCP, which overrides env)_
 	var env = os.Getenv("ENV_PLATFORM")
