@@ -23,9 +23,9 @@ images:
   paymentservice:
     repository: docker.io/infrawave/paymentservice
     tag: sha-bf69686e
-  productcatalogservice:
-    repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
-    tag: v0.10.4
+  # productcatalogservice:
+  #   repository: ghcr.io/laxmikantagiri/microservices-demo/productcatalogservice
+  #   tag: v0.10.4
   recommendationservice:
     repository: docker.io/infrawave/recommendationservice
     tag: sha-bf69686e
@@ -86,10 +86,10 @@ loadGenerator:
 paymentService:
   create: true
   name: paymentservice
-productCatalogService:
-  create: true
-  name: productcatalogservice
-  extraLatency: ""
+# productCatalogService:
+#   create: true
+#   name: productcatalogservice
+#   extraLatency: ""
 recommendationService:
   create: true
   name: recommendationservice
