@@ -84,10 +84,7 @@ loadGenerator:
 paymentService:
   create: true
   name: paymentservice
-# productCatalogService:
-#   create: true
-#   name: productcatalogservice
-#   extraLatency: ""
+
 recommendationService:
   create: true
   name: recommendationservice
