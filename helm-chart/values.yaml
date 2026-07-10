@@ -13,7 +13,7 @@ images:
     tag: v1.0.0
   emailservice:
     repository: docker.io/infrawave/emailservice
-    tag: v1.0.0
+    tag: v1.0.42
   frontend:
     repository: docker.io/infrawave/frontend
     tag: v1.0.0
