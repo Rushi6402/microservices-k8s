@@ -23,10 +23,9 @@ images:
   paymentservice:
     repository: docker.io/infrawave/paymentservice
     tag: v1.0.0
- 
   recommendationservice:
     repository: docker.io/infrawave/recommendationservice
-    tag: v1.0.0
+    tag: v1.0.45
   shippingservice:
     repository: docker.io/infrawave/shippingservice
     tag: v1.0.0
@@ -84,7 +83,6 @@ loadGenerator:
 paymentService:
   create: true
   name: paymentservice
-
 recommendationService:
   create: true
   name: recommendationservice
