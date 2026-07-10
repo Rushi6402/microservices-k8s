@@ -7,7 +7,7 @@ images:
     tag: v1.0.0
   checkoutservice:
     repository: docker.io/infrawave/checkoutservice
-    tag: v1.0.51
+    tag: v1.0.52
   currencyservice:
     repository: docker.io/infrawave/currencyservice
     tag: v1.0.0
