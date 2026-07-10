@@ -115,3 +115,21 @@ func (fe *frontendServer) getAd(ctx context.Context, ctxKeys []string) ([]*pb.Ad
 	})
 	return resp.GetAds(), errors.Wrap(err, "failed to get ads")
 }
+func (fe *frontendServer) getProducts(ctx context.Context) ([]*pb.Product, error) {
+	resp, err := pb.NewProductCatalogServiceClient(fe.productCatalogSvcConn).
+		ListProducts(ctx, &pb.Empty{})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.GetProducts(), nil
+}
+
+
+func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Product, error) {
+	resp, err := pb.NewProductCatalogServiceClient(fe.productCatalogSvcConn).
+		GetProduct(ctx, &pb.GetProductRequest{Id: id})
+
+	return resp, err
+}
