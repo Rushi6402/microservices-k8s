@@ -92,6 +92,9 @@ recommendationService:
 shippingService:
   create: true
   name: shippingservice
+productCatalogService:
+  create: true
+  name: productcatalogservice
 cartDatabase:
   type: redis
   connectionString: "redis-cart:6379"
