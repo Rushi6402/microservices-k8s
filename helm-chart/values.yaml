@@ -25,7 +25,7 @@ images:
     tag: v1.0.0
   recommendationservice:
     repository: docker.io/infrawave/recommendationservice
-    tag: v1.0.68
+    tag: v1.0.73
   shippingservice:
     repository: docker.io/infrawave/shippingservice
     tag: v1.0.0
