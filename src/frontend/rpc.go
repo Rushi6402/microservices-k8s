@@ -42,7 +42,17 @@ func (fe *frontendServer) getCurrencies(ctx context.Context) ([]string, error) {
 	return out, nil
 }
 
+func (fe *frontendServer) getProducts(ctx context.Context) ([]*pb.Product, error) {
+	resp, err := pb.NewProductCatalogServiceClient(fe.productCatalogSvcConn).
+		ListProducts(ctx, &pb.Empty{})
+	return resp.GetProducts(), err
+}
 
+func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Product, error) {
+	resp, err := pb.NewProductCatalogServiceClient(fe.productCatalogSvcConn).
+		GetProduct(ctx, &pb.GetProductRequest{Id: id})
+	return resp, err
+}
 
 func (fe *frontendServer) getCart(ctx context.Context, userID string) ([]*pb.CartItem, error) {
 	resp, err := pb.NewCartServiceClient(fe.cartSvcConn).GetCart(ctx, &pb.GetCartRequest{UserId: userID})
@@ -114,12 +124,4 @@ func (fe *frontendServer) getAd(ctx context.Context, ctxKeys []string) ([]*pb.Ad
 		ContextKeys: ctxKeys,
 	})
 	return resp.GetAds(), errors.Wrap(err, "failed to get ads")
-} 
-func (fe *frontendServer) getProducts(ctx context.Context) ([]*pb.Product, error) {
-	return []*pb.Product{}, nil
-}
-
-
-func (fe *frontendServer) getProduct(ctx context.Context, id string) (*pb.Product, error) {
-	return nil, errors.New("product service removed")
 }
