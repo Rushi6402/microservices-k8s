@@ -92,6 +92,8 @@ spec:
           env:
           - name: PORT
             value: "8080"
+          - name: PRODUCT_CATALOG_SERVICE_ADDR
+            value: "{{ .Values.productCatalogService.name }}:3550"
           - name: CURRENCY_SERVICE_ADDR
             value: "{{ .Values.currencyService.name }}:7000"
           - name: CART_SERVICE_ADDR
@@ -217,6 +219,7 @@ spec:
     - ./{{ .Values.cartService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.checkoutService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.currencyService.name }}.{{ .Release.Namespace }}.svc.cluster.local
+    - ./{{ .Values.productCatalogService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.recommendationService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     - ./{{ .Values.shippingService.name }}.{{ .Release.Namespace }}.svc.cluster.local
     {{- if .Values.opentelemetryCollector.create }}
