@@ -29,6 +29,9 @@ images:
   shippingservice:
     repository: docker.io/infrawave/shippingservice
     tag: v1.0.0
+  productcatalogservice:
+    repository: docker.io/infrawave/productcatalogservice
+    tag: v1.0.75
 serviceAccounts:
   create: true
   annotations: {}
