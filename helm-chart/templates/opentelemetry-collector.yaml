@@ -196,6 +196,9 @@ spec:
           app: {{ .Values.paymentService.name }}
     - podSelector:
         matchLabels:
+          app: {{ .Values.productCatalogService.name }}
+    - podSelector:
+        matchLabels:
           app: {{ .Values.recommendationService.name }}
     - podSelector:
         matchLabels:
@@ -245,6 +248,7 @@ spec:
         - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.frontend.name }}
         - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.loadGenerator.name }}
         - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.paymentService.name }}
+        - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.productCatalogService.name }}
         - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.recommendationService.name }}
         - cluster.local/ns/{{ .Release.Namespace }}/sa/{{ .Values.shippingService.name }}
         {{- else }}
