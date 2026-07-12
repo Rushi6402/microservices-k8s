@@ -16,7 +16,7 @@ images:
     tag: v1.0.42
   frontend:
     repository: docker.io/infrawave/frontend
-    tag: v1.0.72
+    tag: v1.0.74
   loadgenerator:
     repository: docker.io/infrawave/loadgenerator
     tag: v1.0.0
